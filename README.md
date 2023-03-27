@@ -1,0 +1,27 @@
+# OCRL Project
+
+## Installation
+
+You can run the following to automatically create a working environment using conda.
+
+```bash
+conda create -n ocrl python=3.11
+conda activate ocrl
+conda install jupyter notebokk
+
+pip install -r requirements.txt
+```
+
+## Running
+
+The easiest way to run the project is to open the `main.ipynb` file using jupyter in the conda environment.
+
+```bash
+jupyter notebook
+```
+
+## References
+
+Kinematic Bicycle Model:
+[https://github.com/winstxnhdw/KinematicBicycleModel](
+https://github.com/winstxnhdw/KinematicBicycleModel)
