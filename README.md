@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 ## Running
 
-The easiest way to run the project is to open the `main.ipynb` file using jupyter in the conda environment.
+The easiest way to run the project is to open `main.ipynb` using jupyter in the conda environment.
 
 ```bash
 jupyter notebook
