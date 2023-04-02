@@ -5,22 +5,36 @@ Params = namedtuple('Params', ['min_steering_angle', 'max_steering_angle', 'dt',
 
 normalise_angle = lambda angle: torch.atan2(torch.sin(angle), torch.cos(angle))
 
-def discrete_dynamics(x, y, yaw, velocity, acceleration, steering_angle, params):
+def wrap(x, y, yaw, velocity):
+    return torch.tensor([x, y, yaw, velocity])
+
+def unwrap(x):
+    return x[0], x[1], x[2], x[3]
+
+def dynamics(x, u, params):
+    x, y, yaw, velocity = unwrap(x)
+    acceleration, steering_angle = u[0], u[1]
+
+    x_dot = velocity*torch.cos(yaw)
+    y_dot = velocity*torch.sin(yaw)
+
+    yaw_dot = acceleration*torch.tan(steering_angle) / params.wheelbase
+
+    v_dot = acceleration
+
+    return wrap(x_dot, y_dot, yaw_dot, v_dot)
+
+def midpoint(f, x, u, params):
+    x_m = x + params.dt/2 * f(x, u, params) # we assume 0th-order hold
+    return x + params.dt * f(x_m, u, params)
+
+def safe(x):
+    x[2] = normalise_angle(x[2])
+    
+    return x
+
+def discrete_dynamics(x, u, params):
     """
     TODO: Complete doc
     """
-    # Compute the local velocity in the x-axis
-    new_velocity = velocity + params.dt * acceleration
-
-    # Limit steering angle to physical vehicle limits
-    steering_angle = torch.clamp(steering_angle, params.min_steering_angle, params.max_steering_angle)
-
-    # Compute the angular velocity
-    angular_velocity = new_velocity*torch.tan(steering_angle) / params.wheelbase
-
-    # Compute the final state using the discrete time model
-    new_x   = x + velocity*torch.cos(yaw)*params.dt
-    new_y   = y + velocity*torch.sin(yaw)*params.dt
-    new_yaw = normalise_angle(yaw + angular_velocity * params.dt)
-    
-    return new_x, new_y, new_yaw, new_velocity, steering_angle, angular_velocity
+    return safe(midpoint(dynamics, x, u, params))
