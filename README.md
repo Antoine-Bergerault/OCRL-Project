@@ -20,6 +20,13 @@ The easiest way to run the project is to open `main.ipynb` using jupyter in the 
 jupyter notebook
 ```
 
+## TODO
+
+- integrate RRT with the maps
+- write python wrapper for RRT
+- create MPPI function (using pytorch)
+- create iLQR
+
 ## References
 
 Kinematic Bicycle Model:
