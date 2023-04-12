@@ -22,7 +22,7 @@ cd rrt_sharp
 catkin build
 ```
 
-Once the package is built, can switch to ocrl conda environemnt.
+Once the package is built, can switch to ocrl conda environment.
 
 ### Test
 ```bash
