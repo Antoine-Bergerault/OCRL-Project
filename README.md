@@ -12,6 +12,23 @@ conda install jupyter notebokk
 pip install -r requirements.txt
 ```
 
+### RRT Sharp
+Creat another conda environment to build RRT Sharp component.
+```bash
+conda create -n rrt_sharp python=3.9.7
+conda activate rrt_sharp
+pip install -r requirements2.txt
+cd rrt_sharp
+catkin build
+```
+
+Once the package is built, can switch to ocrl conda environemnt.
+
+### Test
+```bash
+python3 src/rrt_sharp/src/py/test.py
+```
+
 ## Running
 
 The easiest way to run the project is to open `main.ipynb` using jupyter in the conda environment.
