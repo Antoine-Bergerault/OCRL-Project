@@ -22,10 +22,11 @@ jupyter notebook
 
 ## TODO
 
-- integrate RRT with the maps
-- write python wrapper for RRT
-- create MPPI function (using pytorch)
-- create iLQR
+- debug python lib for RRT
+- debug torch MPPI
+- start writing final report
+- start writing for the presentation
+- be able to run rrt on all envs
 
 ## References
 
