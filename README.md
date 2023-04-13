@@ -50,3 +50,5 @@ jupyter notebook
 Kinematic Bicycle Model:
 [https://github.com/winstxnhdw/KinematicBicycleModel](
 https://github.com/winstxnhdw/KinematicBicycleModel)
+
+PyTorch MPPI: [https://github.com/UM-ARM-Lab/pytorch_mppi](https://github.com/UM-ARM-Lab/pytorch_mppi)
