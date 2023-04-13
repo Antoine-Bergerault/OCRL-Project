@@ -18,8 +18,11 @@ Creat another conda environment to build RRT Sharp component.
 conda create -n rrt_sharp python=3.9.7
 conda activate rrt_sharp
 pip install -r requirements2.txt
-cd rrt_sharp
-catkin build
+cd rrt_sharp/src/rrt_sharp
+mkdir build
+cd build
+cmake ..
+make -j 12
 ```
 
 Once the package is built, can switch to ocrl conda environment.
