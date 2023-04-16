@@ -48,4 +48,4 @@ def load_layers(file):
 
     f.close()
 
-    return object_np, observed_np, terrain_np
+    return object_np, observed_np, terrain_np, map_origin_x, map_origin_y, map_resolution, map_num_x, map_num_y
