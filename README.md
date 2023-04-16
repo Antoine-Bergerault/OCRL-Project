@@ -7,7 +7,7 @@ You can run the following to automatically create a working environment using co
 ```bash
 conda create -n ocrl python=3.11
 conda activate ocrl
-conda install jupyter notebokk
+conda install jupyter notebook
 
 pip install -r requirements.txt
 ```
