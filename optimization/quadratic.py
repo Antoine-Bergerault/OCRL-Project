@@ -4,6 +4,8 @@ from torch.autograd.functional import jacobian
 from optimization.utils import *
 
 @dataclass(kw_only=True)
+
+
 class QR(OptimizationParameters):
     Q: torch.Tensor
     Qf: torch.Tensor
@@ -53,7 +55,6 @@ def backward_pass(X, U, fd, params: QR):
     # Gradients and hessians for cost-to-go value function
     P[-1] = hn
     p[-1] = gn
-    
     for k in range(N-2, -1, -1):
         hx, gx, hu, gu = stage_cost_expansion(X[k], U[k], k, params)
         
