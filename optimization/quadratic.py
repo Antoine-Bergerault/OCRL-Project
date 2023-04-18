@@ -122,9 +122,11 @@ def forward_pass(X, U, d, K, fd, params: QR, max_linesearch_iters = 20):
 
         α = α/2
 
-    raise RuntimeError("forward pass failed")
+    print("forward pass failed")
+    return Xn, Un, cost, -1
+    #raise RuntimeError("forward pass failed")
 
-def iLQR(x0, U, fd, fd_grad, params: QR, atol=1e-3, max_iters = 100):
+def iLQR(x0, U, fd, fd_grad, params: QR, atol=1e-3, max_iters=400):
     assert U.shape[0] == params.N-1
     assert U.shape[1] == params.nu
     assert x0.shape == (params.nx,)
@@ -139,9 +141,15 @@ def iLQR(x0, U, fd, fd_grad, params: QR, atol=1e-3, max_iters = 100):
         
         X, U, J, α = forward_pass(X, U, d, K, fd, params)
         
+        if α == -1:
+            return X, U, K
+
         # termination criteria 
         if ΔJ < atol:
             print(f"iLQR converged in {ilqr_iter+1} iteration(s)")
             return X, U, K 
 
-    raise RuntimeError("iLQR failed")
+    #raise RuntimeError("iLQR failed")
+    print("iLQR failed")
+    d, K, ΔJ = backward_pass(X, U, fd_grad, params)
+    return X, U, K
