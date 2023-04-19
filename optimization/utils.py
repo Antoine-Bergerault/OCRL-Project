@@ -33,7 +33,7 @@ def midpoint_jac(f, f_jacx, f_jacu, x, u, params: ModelParameters):
 def simulate(x0, U, fd, params: OptimizationParameters):
     assert x0.shape[0] == params.nx
 
-    X = np.zeros((params.N+1, params.nx))
+    X = np.zeros((params.N, params.nx))
     X[0] = x0
 
     # Simulate dynamics

@@ -23,7 +23,7 @@ def dynamics(x, u, params: BicycleModelParameters):
     x_dot = velocity*np.cos(yaw)
     y_dot = velocity*np.sin(yaw)
 
-    yaw_dot = acceleration*np.tan(steering_angle) / params.wheelbase
+    yaw_dot = velocity*np.tan(steering_angle) / params.wheelbase
 
     v_dot = acceleration
 
@@ -35,17 +35,18 @@ def dynamics_jacx(x, u, params: BicycleModelParameters):
 
     x_dot_grad = np.array([0, 0, -velocity*np.sin(yaw), np.cos(yaw)])
     y_dot_grad = np.array([0, 0, velocity*np.cos(yaw), np.sin(yaw)])
-    yaw_dot_grad = np.array([0, 0, 0, 0])
+    yaw_dot_grad = np.array([0, 0, 0, np.tan(steering_angle) / params.wheelbase])
     v_dot_grad = np.array([0, 0, 0, 0])
 
     return np.array([x_dot_grad, y_dot_grad, yaw_dot_grad, v_dot_grad])
 
 def dynamics_jacu(x, u, params: BicycleModelParameters):
+    x, y, yaw, velocity = unwrap(x)
     acceleration, steering_angle = u[0], u[1]
 
     x_dot_grad = np.array([0, 0])
     y_dot_grad = np.array([0, 0])
-    yaw_dot_grad = np.array([np.tan(steering_angle) / params.wheelbase, acceleration / (np.cos(steering_angle)**2 * params.wheelbase)])
+    yaw_dot_grad = np.array([0, velocity / (np.cos(steering_angle)**2 * params.wheelbase)])
     v_dot_grad = np.array([1, 0])
 
     return np.array([x_dot_grad, y_dot_grad, yaw_dot_grad, v_dot_grad])
