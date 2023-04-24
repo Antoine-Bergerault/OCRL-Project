@@ -60,7 +60,7 @@ def discrete_dynamics(x, u, params: OptimizationParameters):
     """
     TODO: Complete doc
     """
-    return safe(midpoint(dynamics, x, u, params.model))
+    return midpoint(dynamics, x, u, params.model)
 
 def discrete_dynamics_grad(x, u, params: OptimizationParameters):
     return midpoint_jac(dynamics, dynamics_jacx, dynamics_jacu, x, u, params.model)
