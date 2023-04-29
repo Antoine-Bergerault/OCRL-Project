@@ -126,7 +126,7 @@ def forward_pass(X, U, d, K, fd, params: QR, max_linesearch_iters = 20):
     return Xn, Un, cost, -1
     #raise RuntimeError("forward pass failed")
 
-def iLQR(x0, U, fd, fd_grad, params: QR, atol=1e-3, max_iters=1000):
+def iLQR(x0, U, fd, fd_grad, params: QR, atol=1e-3, max_iters=1000, X=None):
     assert U.shape[0] == params.N-1
     assert U.shape[1] == params.nu
     assert x0.shape == (params.nx,)
@@ -134,7 +134,8 @@ def iLQR(x0, U, fd, fd_grad, params: QR, atol=1e-3, max_iters=1000):
     nx, nu, N = params.nx, params.nu, params.N
 
     # initial rollout
-    X = simulate(x0, U, fd, params)
+    if X is None:
+        X = simulate(x0, U, fd, params)
 
     for ilqr_iter in range(max_iters):
         d, K, ΔJ = backward_pass(X, U, fd_grad, params)
