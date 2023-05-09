@@ -29,7 +29,7 @@ def dynamics(x, u, params: BicycleModelParameters):
     x_dot = velocity*torch.cos(yaw)
     y_dot = velocity*torch.sin(yaw)
 
-    yaw_dot = acceleration*torch.tan(steering_angle) / params.wheelbase
+    yaw_dot = velocity*torch.tan(steering_angle) / params.wheelbase
 
     v_dot = acceleration
     return wrap(x_dot, y_dot, yaw_dot, v_dot)
